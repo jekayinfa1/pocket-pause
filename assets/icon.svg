@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="PocketPause icon">
+  <rect width="512" height="512" rx="132" fill="#176b57"/>
+  <circle cx="256" cy="256" r="156" fill="#d9ef71"/>
+  <path d="M196 154h76c68 0 112 36 112 96 0 62-45 99-116 99h-25v55h-47V154Zm47 43v109h26c43 0 67-19 67-55 0-35-23-54-66-54h-27Z" fill="#17352e"/>
+  <rect x="111" y="96" width="28" height="320" rx="14" fill="#fffdf7" opacity=".86"/>
+</svg>
