@@ -33,9 +33,10 @@ const manifestAssets = [
   ...(manifest.screenshots || []).map(screenshot => screenshot.src),
   ...(manifest.shortcuts || []).flatMap(shortcut => (shortcut.icons || []).map(icon => icon.src))
 ];
+const normalizeAsset = value => value.replace(/^\.\//, '').split(/[?#]/)[0];
 const localAssets = [...htmlAssets, ...manifestAssets]
   .filter(value => !/^(?:https?:|data:|mailto:|tel:|javascript:)/i.test(value))
-  .map(value => value.replace(/^\.\//, '').split('?')[0])
+  .map(normalizeAsset)
   .filter(Boolean);
 
 for (const asset of new Set(localAssets)) {
@@ -43,7 +44,7 @@ for (const asset of new Set(localAssets)) {
 }
 
 const shellAssets = [...serviceWorker.matchAll(/["']\.\/([^"']+)["']/g)]
-  .map(match => match[1])
+  .map(match => normalizeAsset(match[1]))
   .filter(Boolean);
 for (const asset of new Set(shellAssets)) {
   await access(path.join(root, asset));
