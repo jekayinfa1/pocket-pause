@@ -1,0 +1,17 @@
+{
+  "name": "pocket-pause",
+  "version": "1.0.0",
+  "description": "A privacy-first, context-aware spending intervention and savings PWA.",
+  "type": "module",
+  "private": false,
+  "scripts": {
+    "dev": "node scripts/dev-server.mjs",
+    "build": "node scripts/build-pages.mjs",
+    "check": "node scripts/validate.mjs",
+    "test": "node --test",
+    "verify": "npm run check && npm test && npm run build"
+  },
+  "engines": { "node": ">=20" },
+  "keywords": ["personal-finance", "saving-money", "impulse-spending", "pwa", "privacy-first"],
+  "license": "MIT"
+}
