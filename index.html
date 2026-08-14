@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#102a24">
+  <meta name="description" content="PocketPause uses context-aware messages and memes to interrupt impulse spending and turn skipped purchases into visible savings.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./assets/icon.svg">
+  <link rel="stylesheet" href="./styles.css">
+  <title>PocketPause — Pause spending. Protect your goals.</title>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="PocketPause home">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span>
+          <strong>PocketPause</strong>
+          <small>Pause spending. Protect your goals.</small>
+        </span>
+      </a>
+      <div class="top-actions">
+        <button class="icon-button" id="shareButton" type="button" aria-label="Share PocketPause" title="Share"><span aria-hidden="true">↗</span></button>
+        <button class="avatar-button" id="settingsShortcut" type="button" aria-label="Open settings">PP</button>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section class="view active" id="homeView" data-view="home" aria-labelledby="homeTitle">
+        <div class="hero-grid">
+          <article class="hero-card">
+            <div>
+              <p class="eyebrow">Your money, interrupted on purpose</p>
+              <h1 id="homeTitle">Put space between the feeling and the purchase.</h1>
+              <p class="hero-copy">Tell PocketPause what you are about to buy and how you feel. It will answer with a context-aware meme, a reality check, and the real impact on your goal.</p>
+              <div class="hero-actions">
+                <button class="primary-button large" id="newPauseButton" type="button"><span aria-hidden="true">⏸</span> Pause a purchase</button>
+                <button class="secondary-button large" data-nav-target="insights" type="button">See insights</button>
+              </div>
+            </div>
+            <div class="hero-orbit" aria-hidden="true">
+              <div class="orbit-card orbit-one">“Boredom put it in the cart.”</div>
+              <div class="orbit-card orbit-two">+$42 protected</div>
+              <div class="orbit-center">🛟</div>
+            </div>
+          </article>
+
+          <article class="goal-card">
+            <div class="section-heading compact">
+              <div><p class="eyebrow">Current goal</p><h2 id="goalName">Emergency fund</h2></div>
+              <button class="text-button" data-nav-target="settings" type="button">Edit</button>
+            </div>
+            <div class="goal-ring-wrap">
+              <div class="goal-ring" id="goalRing" role="img" aria-label="Savings goal progress"><div><strong id="goalPercent">0%</strong><span>complete</span></div></div>
+              <div class="goal-numbers"><strong id="goalSaved">$0</strong><span>of <b id="goalTarget">$0</b></span></div>
+            </div>
+            <div class="goal-footer"><span id="goalRemaining">$0 remaining</span><span id="goalForecast">Keep protecting purchases</span></div>
+          </article>
+        </div>
+
+        <section class="stats-grid" aria-label="Savings overview">
+          <article class="stat-card"><span class="stat-icon" aria-hidden="true">↗</span><p>Protected this month</p><strong id="monthlySaved">$0</strong><small id="monthlyGoalText">of $0 monthly target</small></article>
+          <article class="stat-card"><span class="stat-icon" aria-hidden="true">🔥</span><p>No-spend streak</p><strong id="streakCount">0 days</strong><small>Every pause counts</small></article>
+          <article class="stat-card"><span class="stat-icon" aria-hidden="true">⏳</span><p>Decisions waiting</p><strong id="pausedCount">0</strong><small>Revisit when the urge cools</small></article>
+          <article class="stat-card"><span class="stat-icon" aria-hidden="true">🧠</span><p>Top trigger</p><strong id="topTrigger">Learning…</strong><small id="topTriggerDetail">Log a few pauses</small></article>
+        </section>
+
+        <section class="content-grid">
+          <article class="panel">
+            <div class="section-heading"><div><p class="eyebrow">Recent decisions</p><h2>Your pause history</h2></div><button class="text-button" data-nav-target="history" type="button">View all</button></div>
+            <div id="recentList" class="decision-list"></div>
+          </article>
+          <article class="panel"><div class="section-heading"><div><p class="eyebrow">Next best move</p><h2>Protection plan</h2></div></div><div id="nextMove" class="next-move"></div></article>
+        </section>
+      </section>
+
+      <section class="view" id="pauseView" data-view="pause" aria-labelledby="pauseTitle">
+        <div class="page-heading">
+          <div><p class="eyebrow">A 30-second interruption</p><h1 id="pauseTitle">What are you about to buy?</h1><p>The details stay on this device. Location is optional and only used when you ask.</p></div>
+          <button class="secondary-button" data-nav-target="home" type="button">Cancel</button>
+        </div>
+        <form id="pauseForm" class="form-layout">
+          <article class="panel form-panel">
+            <div class="field-row">
+              <label class="field amount-field"><span>Purchase amount</span><span class="money-input"><b>$</b><input id="amountInput" name="amount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="48.00" required></span></label>
+              <label class="field"><span>Category</span><select id="categoryInput" name="category" required><option value="food">Food & drinks</option><option value="clothes">Clothes</option><option value="tech">Tech</option><option value="entertainment">Entertainment</option><option value="beauty">Beauty & self-care</option><option value="home">Home</option><option value="travel">Travel</option><option value="other">Something else</option></select></label>
+            </div>
+            <fieldset class="choice-group">
+              <legend>How are you feeling right now?</legend>
+              <div class="choice-grid mood-grid">
+                <label><input type="radio" name="mood" value="bored" checked><span>😶<b>Bored</b></span></label><label><input type="radio" name="mood" value="stressed"><span>😵‍💫<b>Stressed</b></span></label><label><input type="radio" name="mood" value="excited"><span>🤩<b>Excited</b></span></label><label><input type="radio" name="mood" value="social"><span>🥳<b>Social</b></span></label><label><input type="radio" name="mood" value="tired"><span>😴<b>Tired</b></span></label><label><input type="radio" name="mood" value="neutral"><span>🙂<b>Neutral</b></span></label>
+              </div>
+            </fieldset>
+            <fieldset class="choice-group">
+              <legend>Where is the temptation happening?</legend>
+              <div class="choice-grid location-grid">
+                <label><input type="radio" name="location" value="online" checked><span>📱<b>Online</b></span></label><label><input type="radio" name="location" value="store"><span>🛍️<b>In a store</b></span></label><label><input type="radio" name="location" value="restaurant"><span>🍽️<b>Food spot</b></span></label><label><input type="radio" name="location" value="social"><span>👥<b>With people</b></span></label><label><input type="radio" name="location" value="home"><span>🏠<b>At home</b></span></label><label><input type="radio" name="location" value="other"><span>📍<b>Elsewhere</b></span></label>
+              </div>
+            </fieldset>
+            <div class="context-row">
+              <label class="field"><span>What is pulling you toward it?</span><select id="temptationInput" name="temptation"><option value="want">I just want it</option><option value="sale">It is on sale</option><option value="reward">I deserve a reward</option><option value="friends">Other people are buying</option><option value="convenience">It is convenient</option><option value="replace">I genuinely need a replacement</option></select></label>
+              <label class="field"><span>Message style</span><select id="toneInput" name="tone"><option value="gentle">Gentle</option><option value="witty" selected>Witty</option><option value="roast">Maximum roast</option></select></label>
+            </div>
+            <label class="field"><span>Optional note</span><textarea id="noteInput" name="note" maxlength="180" placeholder="Example: I saw it in a video and opened the shopping app."></textarea></label>
+            <div class="location-permission"><div><strong>Optional location check</strong><p>Compare your current coordinates with temptation zones saved on this device. Coordinates are never uploaded.</p></div><button class="secondary-button" id="checkLocationButton" type="button">Check nearby zones</button></div>
+            <p class="inline-status" id="locationStatus" aria-live="polite"></p>
+            <button class="primary-button full-width" type="submit">Show me the reality check</button>
+          </article>
+          <aside class="panel privacy-panel"><span class="privacy-icon" aria-hidden="true">🔒</span><h2>Private by default</h2><p>Your moods, purchase decisions, and optional coordinates are saved in your browser only.</p><ul class="clean-list"><li>Nothing is sold or uploaded</li><li>GPS is only requested on tap</li><li>Export or erase your data anytime</li></ul></aside>
+        </form>
+      </section>
+
+      <section class="view" id="resultView" data-view="result" aria-labelledby="resultTitle">
+        <div class="result-layout">
+          <article class="meme-card" id="memeCard"><div class="meme-topline">POCKETPAUSE INTERVENTION</div><div class="meme-emoji" id="memeEmoji" aria-hidden="true">🛒</div><h1 id="memeHeadline">Your cart has entered the chat.</h1><p id="memeCaption">Your savings goal would like equal time.</p></article>
+          <article class="panel result-panel"><p class="eyebrow">Your context-aware pause</p><h2 id="resultTitle">Before you spend…</h2><p class="result-message" id="resultMessage"></p><div class="impact-grid" id="impactGrid"></div><div class="rule-match" id="matchedRule" hidden></div><div class="decision-actions"><button class="primary-button success" id="skipPurchaseButton" type="button">Skip it & protect the money</button><button class="secondary-button" id="pausePurchaseButton" type="button">Wait 24 hours</button><button class="text-button centered" id="intentionalPurchaseButton" type="button">I’m buying it intentionally</button></div><p class="decision-note">No shame. The goal is a conscious decision, not perfection.</p></article>
+        </div>
+      </section>
+
+      <section class="view" id="remindersView" data-view="reminders" aria-labelledby="remindersTitle">
+        <div class="page-heading"><div><p class="eyebrow">Intervene before checkout</p><h1 id="remindersTitle">Smart reminders</h1><p>Build rules around the moments when spending is hardest. Browser notifications work while PocketPause is open; native push would require a mobile backend.</p></div><button class="primary-button" id="enableNotificationsButton" type="button">Enable notifications</button></div>
+        <div class="content-grid reminders-grid">
+          <article class="panel"><div class="section-heading"><div><p class="eyebrow">Active protection</p><h2>Your reminder rules</h2></div></div><div id="rulesList" class="rule-list"></div></article>
+          <article class="panel"><div class="section-heading"><div><p class="eyebrow">New rule</p><h2>Add a trigger</h2></div></div><form id="ruleForm" class="stack-form"><label class="field"><span>Rule name</span><input name="name" maxlength="60" required placeholder="Late-night cart shield"></label><div class="field-row"><label class="field"><span>Mood</span><select name="mood"><option value="any">Any mood</option><option value="bored">Bored</option><option value="stressed">Stressed</option><option value="excited">Excited</option><option value="social">Social</option><option value="tired">Tired</option></select></label><label class="field"><span>Location</span><select name="location"><option value="any">Anywhere</option><option value="online">Online</option><option value="store">In a store</option><option value="restaurant">Food spot</option><option value="social">With people</option><option value="home">At home</option></select></label></div><label class="field"><span>Minimum purchase</span><span class="money-input small"><b>$</b><input name="minAmount" type="number" min="0" step="1" value="20"></span></label><label class="field"><span>Reminder message</span><textarea name="message" maxlength="160" required placeholder="The sale ends. Your goal does not."></textarea></label><button class="primary-button" type="submit">Add reminder rule</button></form></article>
+        </div>
+        <div class="content-grid reminders-grid">
+          <article class="panel"><div class="section-heading"><div><p class="eyebrow">Cooling-off queue</p><h2>Paused purchases</h2></div></div><div id="pausedList" class="decision-list"></div></article>
+          <article class="panel"><div class="section-heading"><div><p class="eyebrow">Local geofences</p><h2>Temptation zones</h2></div></div><p class="muted">Save a place while you are physically there. PocketPause checks it only when you tap “Check nearby zones.”</p><form id="zoneForm" class="zone-form"><label class="field"><span>Zone name</span><input name="name" maxlength="60" required placeholder="The mall"></label><label class="field"><span>Radius</span><select name="radius"><option value="100">100 m</option><option value="250" selected>250 m</option><option value="500">500 m</option><option value="1000">1 km</option></select></label><button class="secondary-button" type="submit">Save my current location</button></form><div id="zonesList" class="zone-list"></div></article>
+        </div>
+      </section>
+
+      <section class="view" id="insightsView" data-view="insights" aria-labelledby="insightsTitle">
+        <div class="page-heading"><div><p class="eyebrow">Patterns, not judgment</p><h1 id="insightsTitle">Spending insights</h1><p>Understand what drives your purchases and which interruptions protect the most money.</p></div><button class="secondary-button" id="exportButton" type="button">Export my data</button></div>
+        <section class="stats-grid insights-stats"><article class="stat-card"><p>Total protected</p><strong id="totalProtected">$0</strong><small>Across all skipped purchases</small></article><article class="stat-card"><p>Pause success rate</p><strong id="successRate">0%</strong><small>Skipped after opening an intervention</small></article><article class="stat-card"><p>Most expensive trigger</p><strong id="expensiveTrigger">—</strong><small id="expensiveTriggerDetail">No data yet</small></article><article class="stat-card"><p>Average protected</p><strong id="averageProtected">$0</strong><small>Per skipped purchase</small></article></section>
+        <div class="content-grid"><article class="panel chart-panel"><div class="section-heading"><div><p class="eyebrow">Last seven days</p><h2>Money protected</h2></div></div><div class="bar-chart" id="weeklyChart" aria-label="Money protected over the last seven days"></div></article><article class="panel"><div class="section-heading"><div><p class="eyebrow">Your pattern</p><h2>What the data says</h2></div></div><div id="insightNarrative" class="insight-narrative"></div></article></div>
+        <div class="content-grid"><article class="panel"><div class="section-heading"><div><p class="eyebrow">By mood</p><h2>Emotional triggers</h2></div></div><div id="moodBreakdown" class="breakdown-list"></div></article><article class="panel"><div class="section-heading"><div><p class="eyebrow">By category</p><h2>Purchase categories</h2></div></div><div id="categoryBreakdown" class="breakdown-list"></div></article></div>
+      </section>
+
+      <section class="view" id="historyView" data-view="history" aria-labelledby="historyTitle"><div class="page-heading"><div><p class="eyebrow">Every conscious decision</p><h1 id="historyTitle">Pause history</h1><p>Skipped, delayed, and intentional purchases all belong here.</p></div></div><article class="panel"><div class="history-filters" role="group" aria-label="Filter history"><button class="filter-button active" data-history-filter="all" type="button">All</button><button class="filter-button" data-history-filter="skipped" type="button">Skipped</button><button class="filter-button" data-history-filter="paused" type="button">Paused</button><button class="filter-button" data-history-filter="bought" type="button">Intentional</button></div><div id="historyList" class="decision-list full"></div></article></section>
+
+      <section class="view" id="settingsView" data-view="settings" aria-labelledby="settingsTitle">
+        <div class="page-heading"><div><p class="eyebrow">Make the pause personal</p><h1 id="settingsTitle">Settings</h1><p>Set the goal PocketPause should defend and choose how it talks to you.</p></div></div>
+        <div class="content-grid">
+          <form class="panel stack-form" id="settingsForm"><div class="section-heading"><div><p class="eyebrow">Savings goal</p><h2>Your target</h2></div></div><label class="field"><span>Goal name</span><input id="settingsGoalName" name="goalName" maxlength="60" required></label><div class="field-row"><label class="field"><span>Goal target</span><span class="money-input small"><b>$</b><input id="settingsGoalTarget" name="goalTarget" type="number" min="1" step="1" required></span></label><label class="field"><span>Already saved</span><span class="money-input small"><b>$</b><input id="settingsBaseSaved" name="baseSaved" type="number" min="0" step="1" required></span></label></div><div class="field-row"><label class="field"><span>Monthly protection target</span><span class="money-input small"><b>$</b><input id="settingsMonthlyGoal" name="monthlyGoal" type="number" min="0" step="1" required></span></label><label class="field"><span>Approx. hourly take-home</span><span class="money-input small"><b>$</b><input id="settingsHourlyRate" name="hourlyRate" type="number" min="1" step="1" required></span></label></div><label class="field"><span>Default message style</span><select id="settingsTone" name="tone"><option value="gentle">Gentle</option><option value="witty">Witty</option><option value="roast">Maximum roast</option></select></label><label class="field"><span>Default cooling-off period</span><select id="settingsPauseHours" name="pauseHours"><option value="2">2 hours</option><option value="12">12 hours</option><option value="24">24 hours</option><option value="48">48 hours</option><option value="72">72 hours</option></select></label><button class="primary-button" type="submit">Save settings</button></form>
+          <article class="panel data-panel"><div class="section-heading"><div><p class="eyebrow">Your data</p><h2>Privacy controls</h2></div></div><div class="data-action"><div><strong>Export everything</strong><p>Download one JSON file containing your settings and history.</p></div><button class="secondary-button" id="settingsExportButton" type="button">Export</button></div><div class="data-action"><div><strong>Load demo data</strong><p>See the dashboard and insights with a fictional example.</p></div><button class="secondary-button" id="demoDataButton" type="button">Load demo</button></div><div class="data-action danger"><div><strong>Erase local data</strong><p>Delete all PocketPause data from this browser.</p></div><button class="danger-button" id="resetDataButton" type="button">Erase</button></div><div class="privacy-summary"><span aria-hidden="true">🛡️</span><p><strong>No account. No ad tracking. No cloud database.</strong><br>Everything in this version stays in local browser storage.</p></div></article>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Primary navigation"><button class="nav-button active" data-nav-target="home" type="button"><span aria-hidden="true">⌂</span><b>Home</b></button><button class="nav-button" data-nav-target="reminders" type="button"><span aria-hidden="true">◷</span><b>Reminders</b></button><button class="pause-fab" data-nav-target="pause" type="button" aria-label="Pause a purchase"><span aria-hidden="true">＋</span></button><button class="nav-button" data-nav-target="insights" type="button"><span aria-hidden="true">▥</span><b>Insights</b></button><button class="nav-button" data-nav-target="settings" type="button"><span aria-hidden="true">⚙</span><b>Settings</b></button></nav>
+  </div>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+  <dialog id="confirmDialog"><form method="dialog" class="dialog-card"><span class="dialog-icon" aria-hidden="true">⚠️</span><h2 id="dialogTitle">Are you sure?</h2><p id="dialogText"></p><div class="dialog-actions"><button class="secondary-button" value="cancel">Cancel</button><button class="danger-button" id="dialogConfirmButton" value="confirm">Confirm</button></div></form></dialog>
+  <noscript><p class="noscript">PocketPause needs JavaScript to calculate interventions and save data locally.</p></noscript>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
