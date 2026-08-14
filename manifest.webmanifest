@@ -1,0 +1,33 @@
+{
+  "name": "PocketPause",
+  "short_name": "PocketPause",
+  "description": "Context-aware memes, messages, and insights that interrupt impulse spending and protect savings goals.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f1e8",
+  "theme_color": "#102a24",
+  "orientation": "portrait-primary",
+  "categories": ["finance", "lifestyle", "productivity"],
+  "icons": [{
+    "src": "./assets/icon.svg",
+    "sizes": "any",
+    "type": "image/svg+xml",
+    "purpose": "any maskable"
+  }],
+  "shortcuts": [
+    {
+      "name": "Pause a purchase",
+      "short_name": "New pause",
+      "url": "./#pause",
+      "icons": [{ "src": "./assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "View insights",
+      "short_name": "Insights",
+      "url": "./#insights",
+      "icons": [{ "src": "./assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    }
+  ]
+}
