@@ -23,33 +23,53 @@ PocketPause stores app data locally in the browser. The prototype does not requi
 
 ## Run locally
 
+Requires Node.js 20 or newer.
+
 ```bash
+git clone https://github.com/jekayinfa1/pocket-pause.git
+cd pocket-pause
 npm install
-npm test
 npm run dev
 ```
 
-Then open the local URL shown by the development server.
+Open `http://localhost:8080`. Changes to `index.html`, `styles.css`, or `app.js` appear after refreshing the browser.
 
-You can also use:
+A dependency-free alternative is:
 
 ```bash
 python3 -m http.server 8080
 ```
 
-and open `http://localhost:8080`.
+## Run in GitHub Codespaces
+
+1. Open the repository on GitHub.
+2. Select **Code → Codespaces → Create codespace on main**.
+3. In the Codespaces terminal, run `npm run dev`.
+4. Open forwarded port `8080` from the **Ports** panel.
+
+To share that temporary development preview, change port `8080` visibility to **Public** in the Ports panel and copy its forwarded address. Anyone with the address can view that running preview while the Codespace remains active.
+
+Because the repository is public, another developer can also create their own Codespace or clone the repository and run the same commands. Browser data is local to each person, so their moods, locations, decisions, and savings history do not appear in your browser.
+
+## Public preview
+
+The GitHub Pages workflow publishes `main` at:
+
+`https://jekayinfa1.github.io/pocket-pause/`
 
 ## Validation
 
 ```bash
+npm run check
 npm test
-npm run validate
 npm run build
 ```
 
-## Deployment
+Or run everything together:
 
-The repository includes GitHub Actions workflows for CI and GitHub Pages deployment.
+```bash
+npm run verify
+```
 
 ## License
 
